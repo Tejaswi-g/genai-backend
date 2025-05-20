@@ -348,7 +348,9 @@ def load_model():
     model.eval()
     return model, model_data["label_encoder"]
 
-vit, le = None
+vit = None
+le  = None
+
 
 def morgan_to_image(x):
     flat = np.pad(x, (0, 3 * 32 * 32 - len(x)), constant_values=0)
