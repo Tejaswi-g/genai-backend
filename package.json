@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js",
+    "start:backend": "concurrently \"python C:/Users/tejas/Downloads/Gen_AI_Drug_Discovery/Gen_AI_Drug_Discovery/server/smilepred.py\" \"python C:/Users/tejas/Downloads/Gen_AI_Drug_Discovery/Gen_AI_Drug_Discovery/server/chemberta.py\" \"python C:/Users/tejas/Downloads/Gen_AI_Drug_Discovery/Gen_AI_Drug_Discovery/server/main.py\" \"python C:/Users/tejas/Downloads/Gen_AI_Drug_Discovery/Gen_AI_Drug_Discovery/server/segment.py\" \"python C:/Users/tejas/Downloads/Gen_AI_Drug_Discovery/Gen_AI_Drug_Discovery/server/predict.py\" \"python C:/Users/tejas/Downloads/Gen_AI_Drug_Discovery/Gen_AI_Drug_Discovery/server/final.py\" \"python C:/Users/tejas/Downloads/Gen_AI_Drug_Discovery/Gen_AI_Drug_Discovery/server/3dvis.py\"",
+    "start:all": "concurrently \"npm run start:backend\" \"npm run start\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "joi": "^17.13.3",
+    "joi-password-complexity": "^5.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.10.0",
+    "nodemailer": "^6.10.0",
+    "nodemon": "^3.1.9",
+    "twilio": "^5.4.4"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
