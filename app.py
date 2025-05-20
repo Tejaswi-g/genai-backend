@@ -348,7 +348,7 @@ def load_model():
     model.eval()
     return model, model_data["label_encoder"]
 
-vit, le = load_model()
+vit, le = None
 
 def morgan_to_image(x):
     flat = np.pad(x, (0, 3 * 32 * 32 - len(x)), constant_values=0)
@@ -362,7 +362,8 @@ def predict():
     try:
         data = request.get_json()
         smiles = data.get('smiles', '')
-
+        if vit is None or le is None:
+            vit, le = load_model() 
         # Check if prediction is already cached
         if smiles in prediction_cache:
             return jsonify({
