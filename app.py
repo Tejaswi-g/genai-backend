@@ -116,7 +116,7 @@ def load_model():
     model.eval()
     return model, model_data["label_encoder"]
 
-vit, le = load_model()
+# vit, le = load_model()
 
 def morgan_to_image(x):
     flat = np.pad(x, (0, 3 * 32 * 32 - len(x)), constant_values=0)
@@ -125,11 +125,18 @@ def morgan_to_image(x):
 # ====================================
 # API Endpoints
 # ====================================
+vit = None
+le = None
+
 @app.route('/predict', methods=['POST'])
 def predict():
+    global vit, le
     try:
         data = request.get_json()
         smiles = data.get('smiles', '')
+
+        if vit is None or le is None:
+            vit, le = load_model()  # Lazy load here
 
         # Check if prediction is already cached
         if smiles in prediction_cache:
@@ -155,7 +162,7 @@ def predict():
             predicted_class_idx = output.argmax(1).item()
             predicted_label = le.inverse_transform([predicted_class_idx])[0]
 
-        # Cache result and persist
+        # Cache and persist result
         prediction_cache[smiles] = predicted_label
         joblib.dump(prediction_cache, CACHE_FILE)
 
@@ -166,7 +173,10 @@ def predict():
         })
 
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         return jsonify({"error": str(e)}), 500
+
 
 @app.route('/clear_cache', methods=['POST'])
 def clear_cache():
