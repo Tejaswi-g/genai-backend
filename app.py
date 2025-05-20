@@ -361,6 +361,7 @@ def morgan_to_image(x):
 # ====================================
 @app.route('/predict', methods=['POST'])
 def predict():
+    global vit, le
     try:
         data = request.get_json()
         smiles = data.get('smiles', '')
