@@ -9,7 +9,7 @@ from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["http://localhost:3000","https://genai-frontend-xv3j.onrender.com"])
 
 # ====================================
 # Persistent Cache Setup
